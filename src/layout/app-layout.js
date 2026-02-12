@@ -13,17 +13,16 @@ export class AppLayout extends LitElement {
 
     main {
       flex: 1;
+      height: 100vh;
     }
   `;
 
   render() {
     return html`
       <app-header></app-header>
-
       <main>
         <home-page></home-page>
       </main>
-
       <app-footer></app-footer>
     `;
   }
