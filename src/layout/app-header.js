@@ -1,8 +1,6 @@
 import { LitElement, html, css } from "lit";
+import { Router } from "@vaadin/router";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
 
 export class AppHeader extends LitElement {
   static styles = css`
@@ -18,24 +16,26 @@ export class AppHeader extends LitElement {
       background: #1e4a43;
       color: #fccabe;
       border: 1px solid #fccabe;
-      border-radius: 50px; /* Forma de píldora */
+      border-radius: 50px;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
       z-index: 1000;
-      width: 85vw; /* Píldora más ancha */
-      max-width: 1200px; /* Límite máximo opcional */
+      width: 85vw;
+      max-width: 1200px;
       transition: all 0.3s ease;
     }
 
     nav {
       display: flex;
-      gap: 2rem; /* Más espacio entre enlaces */
+      gap: 2rem;
     }
 
     nav a {
       text-decoration: none;
       color: #fccabe;
       font-weight: bold;
-      transition: opacity 0.3s;
+      transition: all 0.3s;
+      padding-bottom: 4px;
+      border-bottom: 2px solid transparent;
     }
 
     nav a:hover {
@@ -64,6 +64,11 @@ export class AppHeader extends LitElement {
     }
   `;
 
+  _navigate(e) {
+    e.preventDefault();
+    Router.go(e.target.getAttribute("href"));
+  }
+
   firstUpdated() {
     const header = this.shadowRoot.querySelector("header");
     let lastScroll = 0;
@@ -72,26 +77,11 @@ export class AppHeader extends LitElement {
       const currentScroll = window.pageYOffset;
 
       if (currentScroll <= 0) {
-        // En la parte superior - siempre visible
-        gsap.to(header, {
-          y: 0,
-          opacity: 1,
-          duration: 0.3,
-        });
+        gsap.to(header, { y: 0, opacity: 1, duration: 0.3 });
       } else if (currentScroll > lastScroll) {
-        // Scroll hacia abajo - ocultar
-        gsap.to(header, {
-          y: -100,
-          opacity: 0,
-          duration: 0.3,
-        });
+        gsap.to(header, { y: -100, opacity: 0, duration: 0.3 });
       } else {
-        // Scroll hacia arriba - mostrar
-        gsap.to(header, {
-          y: 0,
-          opacity: 1,
-          duration: 0.3,
-        });
+        gsap.to(header, { y: 0, opacity: 1, duration: 0.3 });
       }
 
       lastScroll = currentScroll;
@@ -102,13 +92,13 @@ export class AppHeader extends LitElement {
     return html`
       <header>
         <nav>
-          <a href="#">Inicio</a>
-          <a href="#">Sobre</a>
-          <a href="#">Contacto</a>
+          <a href="/" @click=${this._navigate}>Inicio</a>
+          <a href="/about" @click=${this._navigate}>Sobre</a>
+          <a href="/contact" @click=${this._navigate}>Contacto</a>
         </nav>
         <div class="header-buttons">
-          <button>Login</button>
-          <button>Sign Up</button>
+          <button @click=${() => Router.go("/login")}>Login</button>
+          <button @click=${() => Router.go("/signup")}>Sign Up</button>
         </div>
       </header>
     `;

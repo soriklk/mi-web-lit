@@ -1,7 +1,7 @@
 import { LitElement, html, css } from "lit";
+import { Router } from "@vaadin/router";
 import "./app-header.js";
 import "./app-footer.js";
-import "../pages/home-page.js";
 
 export class AppLayout extends LitElement {
   static styles = css`
@@ -17,11 +17,38 @@ export class AppLayout extends LitElement {
     }
   `;
 
+  firstUpdated() {
+    const outlet = this.shadowRoot.querySelector("main");
+    const router = new Router(outlet);
+
+    router.setRoutes([
+      {
+        path: "/",
+        component: "home-page",
+        action: async () => {
+          await import("../pages/home-page.js");
+        },
+      },
+      {
+        path: "/about",
+        component: "about-page",
+        action: async () => {
+          await import("../pages/about-page.js");
+        },
+      },
+
+      {
+        path: "(.*)",
+        redirect: "/",
+      }, // 404 - redirige al home
+    ]);
+  }
+
   render() {
     return html`
       <app-header></app-header>
       <main>
-        <home-page></home-page>
+        <!-- El router renderizará las páginas aquí -->
       </main>
       <app-footer></app-footer>
     `;
