@@ -28,6 +28,18 @@ export class HomePage extends LitElement {
       border-radius: 20px;
       flex: 1;
     }
+
+    h1 {
+      font-family: "Rosso", sans-serif;
+      font-size: 150px;
+
+      margin: 0;
+    }
+
+    p {
+      font-family: "Rosso", sans-serif;
+      font-size: 50px;
+      margin: 0;
   `;
 
   render() {
