@@ -94,7 +94,6 @@ export class AppHeader extends LitElement {
         <nav>
           <a href="/" @click=${this._navigate}>Inicio</a>
           <a href="/about" @click=${this._navigate}>Sobre</a>
-          <a href="/contact" @click=${this._navigate}>Contacto</a>
         </nav>
         <div class="header-buttons">
           <button @click=${() => Router.go("/login")}>Login</button>
