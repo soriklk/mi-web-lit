@@ -38,6 +38,14 @@ export class AppLayout extends LitElement {
       },
 
       {
+        path: "/cats",
+        component: "cats-page",
+        action: async () => {
+          await import("../pages/cats-page.js");
+        },
+      },
+
+      {
         path: "(.*)",
         redirect: "/",
       }, // 404 - redirige al home

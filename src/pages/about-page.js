@@ -5,6 +5,8 @@ export class AboutPage extends LitElement {
     :host {
       display: block;
       padding: 20px;
+      height: 100vh;
+      margin-top: 80px; /* Para evitar solapamiento con el header */
     }
 
     h1 {
@@ -16,7 +18,6 @@ export class AboutPage extends LitElement {
   render() {
     return html`
       <div>
-        <h1>Sobre Nosotros</h1>
         <p>Esta es la página About</p>
       </div>
     `;
