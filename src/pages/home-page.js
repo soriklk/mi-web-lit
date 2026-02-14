@@ -1,5 +1,5 @@
 import { LitElement, html, css } from "lit";
-
+import { Router } from "@vaadin/router";
 export class HomePage extends LitElement {
   static styles = css`
     :host {
@@ -40,21 +40,40 @@ export class HomePage extends LitElement {
       font-family: "Rosso", sans-serif;
       font-size: 50px;
       margin: 0;
+    }
+
+    .api-button {
+      background-color: #fccabe;
+      border: none;
+      padding: 10px 20px;
+      font-size: 20px;
+      cursor: pointer;
+      border-radius: 100px;
+    }
+
+    .api-button:hover {
+      background-color: #f9b0a0;
+    }
   `;
 
   render() {
     return html`
       <div class="home-container">
         <div class="part">
-          <h1>GROVE</h1>
+          <h1>API CATS</h1>
+          <button class="api-button" @click=${() => Router.go("/cats")}>
+            GO TO API
+          </button>
           <p>FRONTEND DEVELOPER</p>
         </div>
         <div class="part">
           <h1>GROVE</h1>
+          <button class="api-button">GO TO API</button>
           <p>FRONTEND DEVELOPER</p>
         </div>
         <div class="part">
           <h1>GROVE</h1>
+          <button class="api-button">GO TO API</button>
           <p>FRONTEND DEVELOPER</p>
         </div>
       </div>
